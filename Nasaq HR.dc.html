@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#D9E1EC;font-family:'IBM Plex Sans Arabic',sans-serif;color:#14213D}
+a{color:#2E62F0;text-decoration:none}a:hover{color:#1A2F6B}
+button{font-family:inherit;cursor:pointer}
+</style>
+</helmet>
+<div dir="rtl" style="min-height:100vh;padding:32px;box-sizing:border-box;background:radial-gradient(1200px 600px at 80% -10%,#EEF3FB,transparent),#D9E1EC;overflow-x:auto">
+<div style="min-width:1180px;max-width:1440px;margin:0 auto;background:linear-gradient(165deg,#F5F8FD 0%,#E8EEF8 100%);border:1px solid rgba(255,255,255,.9);border-radius:36px;padding:22px 26px 28px;box-shadow:0 30px 80px -30px rgba(26,47,107,.35);box-sizing:border-box">
+
+<!-- top bar -->
+<div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+  <div style="display:flex;align-items:center;gap:10px">
+  <div style="display:flex;align-items:center;gap:10px;padding:8px 20px 8px 16px;border:1px solid #C9D4E8;border-radius:999px;background:rgba(255,255,255,.6)">
+    <div style="width:10px;height:10px;border-radius:50%;background:#2E62F0;box-shadow:-6px 0 0 #1A2F6B"></div>
+    <span style="font-family:Alexandria;font-size:20px;font-weight:500;letter-spacing:0">نَسَق</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px;padding:4px;border-radius:999px;border:1px dashed #AAB7CE">
+    <sc-for list="{{ roles }}" as="r" hint-placeholder-count="3">
+      <button onClick="{{ r.go }}" style="border:0;border-radius:999px;padding:6px 10px;font-size:12px;white-space:nowrap;background:{{ r.bg }};color:{{ r.fg }}">{{ r.label }}</button>
+    </sc-for>
+  </div>
+  </div>
+  <div style="display:flex;gap:4px;padding:5px;background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.95);border-radius:999px">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
+      <button onClick="{{ t.go }}" style="border:0;border-radius:999px;padding:9px 13px;font-size:13px;font-weight:500;white-space:nowrap;background:{{ t.bg }};color:{{ t.fg }}">{{ t.label }}</button>
+    </sc-for>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <div title="ابحث عن موظف" style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.75);display:grid;place-items:center">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14213D" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+    </div>
+    <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.75);display:grid;place-items:center;position:relative">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14213D" stroke-width="1.8"><path d="M6 8a6 6 0 1112 0c0 7 3 8 3 8H3s3-1 3-8"></path><path d="M10 20a2 2 0 004 0"></path></svg>
+      <span style="position:absolute;top:9px;left:10px;width:7px;height:7px;border-radius:50%;background:#E04F5F"></span>
+    </div>
+    <div style="width:40px;height:40px;border-radius:50%;overflow:hidden;background:#C9D4E8"><image-slot id="me-avatar" shape="circle" placeholder="صورتك"></image-slot></div>
+  </div>
+</div>
+
+<!-- ================= EMPLOYEE HOME ================= -->
+<sc-if value="{{ isEHome }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px;gap:40px">
+  <div><h1 style="font-family:Alexandria;font-weight:300;font-size:46px;margin:0">صباح الخير، أحمد</h1><div style="color:#5B6785;font-size:14px;margin-top:8px">مصمم واجهات · قسم التصميم · الخميس 22 أكتوبر</div></div>
+  <div style="display:flex;gap:40px">
+    <div style="display:flex;align-items:flex-end;gap:10px"><span style="font-size:12px;color:#5B6785;padding-bottom:8px">رصيد<br>الإجازات</span><span style="font-family:Alexandria;font-weight:300;font-size:58px;line-height:1">14</span></div>
+    <div style="display:flex;align-items:flex-end;gap:10px"><span style="font-size:12px;color:#5B6785;padding-bottom:8px">ساعة<br>هذا الشهر</span><span style="font-family:Alexandria;font-weight:300;font-size:58px;line-height:1">152</span></div>
+    <div style="display:flex;align-items:flex-end;gap:10px"><span style="font-size:12px;color:#5B6785;padding-bottom:8px">تقييم<br>الأداء</span><span style="font-family:Alexandria;font-weight:300;font-size:58px;line-height:1">96<span style="font-size:28px">%</span></span></div>
+  </div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:310px auto;gap:14px">
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:Alexandria;font-size:17px">حضوري اليوم</span><span style="font-size:12px;color:{{ empChipFg }};background:{{ empChipBg }};padding:4px 10px;border-radius:999px">{{ empChip }}</span></div>
+    <div style="flex:1;display:grid;place-items:center;position:relative">
+      <svg width="150" height="150" viewBox="0 0 160 160" style="transform:rotate(-90deg)"><circle cx="80" cy="80" r="70" fill="none" stroke="#E3E9F4" stroke-width="10" stroke-dasharray="3 6"></circle><circle cx="80" cy="80" r="70" fill="none" stroke="#2E62F0" stroke-width="10" stroke-linecap="round" stroke-dasharray="439.8" stroke-dashoffset="{{ ringOffset }}"></circle></svg>
+      <div style="position:absolute;text-align:center"><div style="font-family:Alexandria;font-size:30px;direction:ltr">{{ clock }}</div><div style="font-size:11px;color:#5B6785">ساعات عمل اليوم</div></div>
+    </div>
+    <button onClick="{{ empToggle }}" style="height:42px;border-radius:999px;border:0;background:{{ empBtnBg }};color:#fff;font-size:14px">{{ empBtn }}</button>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px;display:flex;flex-direction:column">
+    <span style="font-family:Alexandria;font-size:17px">ساعاتي هذا الأسبوع</span>
+    <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><span style="font-family:Alexandria;font-weight:300;font-size:30px">44.2</span><span style="font-size:12px;color:#5B6785">من 40 ساعة · +4.2 إضافي</span></div>
+    <div style="flex:1;display:flex;align-items:flex-end;justify-content:space-between;padding:0 6px">
+      <sc-for list="{{ bars }}" as="b" hint-placeholder-count="7">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;position:relative">
+          <sc-if value="{{ b.today }}"><span style="position:absolute;top:-30px;white-space:nowrap;background:#2E62F0;color:#fff;font-size:11px;padding:3px 8px;border-radius:999px">{{ b.h }} س</span></sc-if>
+          <div style="width:5px;border-radius:5px;height:{{ b.px }};background:{{ b.color }}"></div>
+          <span style="font-size:11px;color:#5B6785">{{ b.d }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="background:linear-gradient(170deg,#24408A,#1A2F6B);color:#fff;border-radius:26px;padding:20px;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between"><span style="font-family:Alexandria;font-size:17px">راتب أكتوبر</span><span style="font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.14)">يُصرف 28 أكتوبر</span></div>
+    <div style="margin-top:auto"><div style="font-size:12px;opacity:.7">الصافي المتوقع</div><div style="font-family:Alexandria;font-weight:300;font-size:44px;line-height:1.2">{{ slipNet }}</div><div style="font-size:12px;opacity:.7">جنيه مصري</div></div>
+    <div style="display:flex;gap:6px;margin:16px 0 14px"><div style="flex:83;height:8px;border-radius:9px;background:#fff"></div><div style="flex:17;height:8px;border-radius:9px;background:#E04F5F"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;opacity:.85;margin-bottom:14px"><span>مستحقات {{ slipEarn }}</span><span>استقطاعات {{ slipDed }}</span></div>
+    <button onClick="{{ goSlip }}" style="height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-size:13px">عرض قسيمة الراتب</button>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+    <span style="font-family:Alexandria;font-size:17px">طلب سريع</span>
+    <sc-for list="{{ quick }}" as="q" hint-placeholder-count="4">
+      <button onClick="{{ q.go }}" style="display:flex;justify-content:space-between;align-items:center;height:48px;padding:0 16px;border-radius:16px;border:1px solid #E3E9F4;background:#fff;font-size:14px;color:#14213D"><span>{{ q.label }}</span><span style="color:#2E62F0">←</span></button>
+    </sc-for>
+  </div>
+  <div style="grid-column:span 2;background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 22px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span style="font-family:Alexandria;font-size:17px">أهدافي للربع الرابع</span><span style="font-size:12px;color:#5B6785">حافز متوقع 2,500 ج.م</span></div>
+    <sc-for list="{{ myKpis }}" as="k" hint-placeholder-count="3">
+      <div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,2fr) 70px;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid #EEF2F8;font-size:14px">
+        <span>{{ k.name }}</span>
+        <span style="height:8px;border-radius:9px;background:#E3E9F4"><span style="display:block;height:100%;border-radius:9px;width:{{ k.w }};background:{{ k.c }}"></span></span>
+        <span style="font-family:Alexandria;text-align:left">{{ k.v }}</span>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px">
+    <div style="font-family:Alexandria;font-size:17px;margin-bottom:14px">رصيد إجازاتي</div>
+    <div style="display:flex;flex-direction:column;gap:14px;font-size:13px">
+      <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>اعتيادية</span><span>14 / 21</span></div><div style="height:8px;border-radius:9px;background:#E3E9F4"><div style="width:66%;height:100%;border-radius:9px;background:#2E62F0"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>عارضة</span><span>5 / 7</span></div><div style="height:8px;border-radius:9px;background:#E3E9F4"><div style="width:71%;height:100%;border-radius:9px;background:#1A2F6B"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>مرضية</span><span>15 / 15</span></div><div style="height:8px;border-radius:9px;background:#E3E9F4"><div style="width:100%;height:100%;border-radius:9px;background:#9DB5EE"></div></div></div>
+    </div>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px;display:flex;flex-direction:column;gap:12px">
+    <span style="font-family:Alexandria;font-size:17px">من الموارد البشرية</span>
+    <div style="padding:12px 14px;border-radius:16px;background:#DCE6FB"><div style="font-size:13px;font-weight:500;color:#1A2F6B">إجازة رسمية الخميس 6 نوفمبر</div><div style="font-size:12px;color:#3B4A6B;margin-top:3px">بمناسبة ذكرى انتصارات أكتوبر</div></div>
+    <div style="padding:12px 14px;border-radius:16px;background:#fff"><div style="font-size:13px;font-weight:500">تجديد التأمين الطبي</div><div style="font-size:12px;color:#5B6785;margin-top:3px">أضف أفراد الأسرة قبل 31 أكتوبر</div></div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= PAYSLIP ================= -->
+<sc-if value="{{ isSlip }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px">
+  <div><h1 style="font-family:Alexandria;font-weight:300;font-size:40px;margin:0">قسيمة الراتب</h1><div style="color:#5B6785;font-size:14px;margin-top:6px">أحمد سمير · كود الموظف NSQ-0142</div></div>
+  <div style="display:flex;gap:4px;padding:5px;background:rgba(255,255,255,.65);border-radius:999px">
+    <sc-for list="{{ months }}" as="m" hint-placeholder-count="4"><button onClick="{{ m.go }}" style="border:0;border-radius:999px;padding:8px 16px;font-size:13px;background:{{ m.bg }};color:{{ m.fg }}">{{ m.label }}</button></sc-for>
+  </div>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:14px">
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:20px 22px">
+    <div style="font-family:Alexandria;font-size:17px;margin-bottom:6px">المستحقات</div>
+    <sc-for list="{{ earn }}" as="r" hint-placeholder-count="4"><div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #EEF2F8;font-size:14px"><span>{{ r.k }}</span><span style="font-family:Alexandria">{{ r.v }}</span></div></sc-for>
+    <div style="display:flex;justify-content:space-between;padding-top:14px;font-size:14px;font-weight:600;color:#14805A"><span>الإجمالي</span><span style="font-family:Alexandria">{{ slipEarn }}</span></div>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:20px 22px">
+    <div style="font-family:Alexandria;font-size:17px;margin-bottom:6px">الاستقطاعات</div>
+    <sc-for list="{{ ded }}" as="r" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #EEF2F8;font-size:14px"><span>{{ r.k }}</span><span style="font-family:Alexandria">{{ r.v }}</span></div></sc-for>
+    <div style="display:flex;justify-content:space-between;padding-top:14px;font-size:14px;font-weight:600;color:#B3283A"><span>الإجمالي</span><span style="font-family:Alexandria">{{ slipDed }}</span></div>
+  </div>
+  <div style="background:linear-gradient(170deg,#24408A,#1A2F6B);color:#fff;border-radius:26px;padding:22px;display:flex;flex-direction:column">
+    <span style="font-family:Alexandria;font-size:17px">صافي {{ monthLabel }}</span>
+    <div style="font-family:Alexandria;font-weight:300;font-size:52px;margin-top:auto">{{ slipNet }}</div>
+    <div style="font-size:13px;opacity:.7">جنيه مصري · تحويل بنكي CIB ****4821</div>
+    <div style="display:flex;gap:8px;margin-top:20px">
+      <button style="flex:1;height:40px;border-radius:999px;border:0;background:#fff;color:#1A2F6B;font-size:13px">تحميل PDF</button>
+      <button onClick="{{ goReq }}" style="flex:1;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-size:13px">استفسار</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= MY REQUESTS ================= -->
+<sc-if value="{{ isMyReq }}">
+<div style="margin:34px 4px 22px"><h1 style="font-family:Alexandria;font-weight:300;font-size:40px;margin:0">طلباتي</h1><div style="color:#5B6785;font-size:14px;margin-top:6px">قدّم طلبًا جديدًا وتابع حالته</div></div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px">
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:22px;display:flex;flex-direction:column;gap:16px">
+    <span style="font-family:Alexandria;font-size:17px">طلب جديد</span>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <sc-for list="{{ reqTypes }}" as="t" hint-placeholder-count="5"><button onClick="{{ t.go }}" style="border-radius:999px;padding:9px 16px;font-size:13px;border:1px solid {{ t.bd }};background:{{ t.bg }};color:{{ t.fg }}">{{ t.label }}</button></sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#5B6785">من<input type="date" value="2026-11-02" style="height:42px;border-radius:14px;border:1px solid #DCE3EF;padding:0 12px;font-family:inherit;font-size:14px;background:#fff"></input></label>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#5B6785">إلى<input type="date" value="2026-11-04" style="height:42px;border-radius:14px;border:1px solid #DCE3EF;padding:0 12px;font-family:inherit;font-size:14px;background:#fff"></input></label>
+    </div>
+    <label style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#5B6785">ملاحظة للمدير<textarea rows="3" placeholder="اكتب السبب أو أي تفاصيل…" style="border-radius:14px;border:1px solid #DCE3EF;padding:10px 12px;font-family:inherit;font-size:14px;resize:none;background:#fff"></textarea></label>
+    <button onClick="{{ submitReq }}" style="height:46px;border-radius:999px;border:0;background:#1A2F6B;color:#fff;font-size:14px">إرسال الطلب</button>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:10px 22px">
+    <sc-for list="{{ myReqs }}" as="r" hint-placeholder-count="3">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #EEF2F8">
+        <div><div style="font-size:15px;font-weight:500">{{ r.type }}</div><div style="font-size:12px;color:#5B6785;margin-top:3px">{{ r.date }}</div></div>
+        <span style="font-size:12px;padding:5px 12px;border-radius:999px;background:{{ r.bg }};color:{{ r.fg }}">{{ r.st }}</span>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= HR HOME ================= -->
+<sc-if value="{{ isHrHome }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px;gap:40px">
+  <div><h1 style="font-family:Alexandria;font-weight:300;font-size:46px;margin:0">أهلاً، منى</h1><div style="color:#5B6785;font-size:14px;margin-top:8px">لوحة الموارد البشرية · 9 مهام تحتاج انتباهك اليوم</div></div>
+  <div style="display:flex;gap:40px">
+    <div style="display:flex;align-items:flex-end;gap:10px"><span style="font-size:12px;color:#5B6785;padding-bottom:8px">إجمالي<br>الموظفين</span><span style="font-family:Alexandria;font-weight:300;font-size:58px;line-height:1">248</span></div>
+    <div style="display:flex;align-items:flex-end;gap:10px"><span style="font-size:12px;color:#5B6785;padding-bottom:8px">وظائف<br>شاغرة</span><span style="font-family:Alexandria;font-weight:300;font-size:58px;line-height:1">14</span></div>
+    <div style="display:flex;align-items:flex-end;gap:10px"><span style="font-size:12px;color:#5B6785;padding-bottom:8px">معدل<br>الدوران</span><span style="font-family:Alexandria;font-weight:300;font-size:58px;line-height:1">4.1<span style="font-size:28px">%</span></span></div>
+  </div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px">
+  <div style="grid-column:span 2;background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 22px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><span style="font-family:Alexandria;font-size:17px">مسار التوظيف · أكتوبر</span><button onClick="{{ goHiring }}" style="border:0;background:#fff;border-radius:999px;padding:6px 14px;font-size:12px;color:#2E62F0">فتح لوحة التوظيف</button></div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="5">
+        <div style="display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:center;font-size:13px">
+          <span style="color:#5B6785">{{ f.k }}</span>
+          <div style="height:30px;border-radius:999px;width:{{ f.w }};background:{{ f.c }};color:{{ f.fg }};display:flex;align-items:center;padding:0 14px;font-size:12px;box-sizing:border-box">{{ f.v }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px">
+    <div style="font-family:Alexandria;font-size:17px;margin-bottom:10px">مقابلات اليوم</div>
+    <sc-for list="{{ interviews }}" as="v" hint-placeholder-count="3">
+      <div style="display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #EEF2F8">
+        <span style="font-size:12px;color:#2E62F0;background:#DCE6FB;border-radius:10px;padding:6px 8px;white-space:nowrap">{{ v.t }}</span>
+        <div><div style="font-size:14px;font-weight:500">{{ v.n }}</div><div style="font-size:12px;color:#5B6785">{{ v.r }}</div></div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="grid-row:span 2;background:linear-gradient(170deg,#24408A,#1A2F6B);color:#fff;border-radius:26px;padding:20px;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><span style="font-family:Alexandria;font-size:16px">جاهزية رواتب أكتوبر</span><span style="font-family:Alexandria;font-weight:300;font-size:26px">{{ readyCount }}/5</span></div>
+    <div style="font-size:12px;opacity:.65;margin-bottom:10px">الإقفال يوم 25 أكتوبر</div>
+    <sc-for list="{{ ready }}" as="k" hint-placeholder-count="5">
+      <div onClick="{{ k.toggle }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer">
+        <div><div style="font-size:13px">{{ k.title }}</div><div style="font-size:11px;opacity:.6">{{ k.sub }}</div></div>
+        <span style="width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:{{ k.chk }};border:1px solid rgba(255,255,255,.4);font-size:10px;flex:none">{{ k.mark }}</span>
+      </div>
+    </sc-for>
+    <button style="margin-top:auto;height:40px;border-radius:999px;border:0;background:#fff;color:#1A2F6B;font-size:13px">إرسال للاعتماد المالي</button>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px">
+    <div style="font-family:Alexandria;font-size:17px;margin-bottom:10px">استثناءات الحضور اليوم</div>
+    <sc-for list="{{ exceptions }}" as="e" hint-placeholder-count="3">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #EEF2F8">
+        <div><div style="font-size:14px;font-weight:500">{{ e.name }}</div><div style="font-size:12px;color:#5B6785">{{ e.dept }} · {{ e.in }}</div></div>
+        <span style="font-size:12px;padding:4px 10px;border-radius:999px;background:{{ e.chipBg }};color:{{ e.chipFg }}">{{ e.st }}</span>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px">
+    <div style="font-family:Alexandria;font-size:17px;margin-bottom:10px">موظفون جدد قيد التهيئة</div>
+    <sc-for list="{{ onboard }}" as="o" hint-placeholder-count="3">
+      <div style="padding:9px 0">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span style="font-weight:500">{{ o.n }} <span style="font-weight:400;color:#5B6785">· {{ o.r }}</span></span><span style="font-family:Alexandria">{{ o.p }}%</span></div>
+        <div style="height:6px;border-radius:9px;background:#E3E9F4"><div style="height:100%;border-radius:9px;width:{{ o.w }};background:#2E62F0"></div></div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px">
+    <div style="font-family:Alexandria;font-size:17px;margin-bottom:10px">مستندات وعقود تنتهي قريبًا</div>
+    <sc-for list="{{ expiring }}" as="x" hint-placeholder-count="3">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #EEF2F8">
+        <div><div style="font-size:14px;font-weight:500">{{ x.k }}</div><div style="font-size:12px;color:#5B6785">{{ x.n }}</div></div>
+        <span style="font-size:12px;padding:4px 10px;border-radius:999px;background:#FCEFD6;color:#9A5E00;white-space:nowrap">{{ x.d }}</span>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= HIRING ================= -->
+<sc-if value="{{ isHiring }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px">
+  <div><h1 style="font-family:Alexandria;font-weight:300;font-size:40px;margin:0">التوظيف</h1><div style="color:#5B6785;font-size:14px;margin-top:6px">14 وظيفة شاغرة · اضغط «المرحلة التالية» لنقل المرشح</div></div>
+  <button style="height:42px;padding:0 22px;border-radius:999px;border:0;background:#1A2F6B;color:#fff;font-size:14px">+ وظيفة جديدة</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:start">
+  <sc-for list="{{ board }}" as="col" hint-placeholder-count="5">
+    <div style="background:rgba(255,255,255,.55);border:1px solid #fff;border-radius:24px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:380px">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:2px 4px"><span style="font-family:Alexandria;font-size:15px">{{ col.title }}</span><span style="font-size:12px;color:#5B6785;background:#fff;border-radius:999px;padding:2px 10px">{{ col.count }}</span></div>
+      <sc-for list="{{ col.items }}" as="c">
+        <div style="background:#fff;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 6px 16px -12px rgba(26,47,107,.35)">
+          <div style="display:flex;gap:10px;align-items:center">
+            <span style="width:34px;height:34px;border-radius:50%;background:#DCE6FB;color:#1A2F6B;display:grid;place-items:center;font-family:Alexandria;font-size:13px;flex:none">{{ c.ini }}</span>
+            <div style="min-width:0"><div style="font-size:14px;font-weight:500">{{ c.n }}</div><div style="font-size:12px;color:#5B6785">{{ c.r }}</div></div>
+          </div>
+          <sc-if value="{{ c.canMove }}"><button onClick="{{ c.next }}" style="height:30px;border-radius:999px;border:1px solid #DCE3EF;background:#F5F8FD;font-size:12px;color:#2E62F0">المرحلة التالية ←</button></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </sc-for>
+</div>
+</sc-if>
+
+<!-- ================= DASHBOARD ================= -->
+<sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px;gap:40px">
+  <div style="flex:1;max-width:620px">
+    <h1 style="font-family:Alexandria;font-weight:300;font-size:46px;margin:0 0 20px">أهلاً، منى</h1>
+    <div style="display:flex;gap:6px;align-items:flex-end">
+      <div style="flex:62;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#5B6785">حاضرون</span><div style="height:30px;border-radius:999px;background:#1A2F6B;color:#fff;font-size:12px;display:flex;align-items:center;padding:0 14px">62%</div></div>
+      <div style="flex:18;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#5B6785">عن بُعد</span><div style="height:30px;border-radius:999px;background:#2E62F0;color:#fff;font-size:12px;display:flex;align-items:center;padding:0 14px">18%</div></div>
+      <div style="flex:12;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#5B6785">إجازة</span><div style="height:30px;border-radius:999px;background:#9DB5EE;color:#1A2F6B;font-size:12px;display:flex;align-items:center;padding:0 12px">12%</div></div>
+      <div style="flex:8;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#5B6785">متأخر</span><div style="height:30px;border-radius:999px;border:1px solid #AAB7CE;background:repeating-linear-gradient(45deg,transparent 0 5px,rgba(91,103,133,.18) 5px 6px);color:#5B6785;font-size:12px;display:flex;align-items:center;padding:0 10px">8%</div></div>
+    </div>
+  </div>
+  <div style="display:flex;gap:40px">
+    <div style="display:flex;align-items:flex-end;gap:10px"><div style="display:flex;flex-direction:column;gap:4px;font-size:12px;color:#5B6785;padding-bottom:8px"><span style="width:26px;height:26px;border-radius:50%;background:#fff;display:grid;place-items:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2E62F0" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1-4 4-6 8-6s7 2 8 6"></path></svg></span>موظف</div><span style="font-family:Alexandria;font-weight:300;font-size:58px;line-height:1">248</span></div>
+    <div style="display:flex;align-items:flex-end;gap:10px"><div style="display:flex;flex-direction:column;gap:4px;font-size:12px;color:#5B6785;padding-bottom:8px"><span style="width:26px;height:26px;border-radius:50%;background:#fff;display:grid;place-items:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2E62F0" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg></span>تعيين جديد</div><span style="font-family:Alexandria;font-weight:300;font-size:58px;line-height:1">12</span></div>
+    <div style="display:flex;align-items:flex-end;gap:10px"><div style="display:flex;flex-direction:column;gap:4px;font-size:12px;color:#5B6785;padding-bottom:8px"><span style="width:26px;height:26px;border-radius:50%;background:#fff;display:grid;place-items:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2E62F0" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg></span>متوسط الأداء</div><span style="font-family:Alexandria;font-weight:300;font-size:58px;line-height:1">87<span style="font-size:28px">%</span></span></div>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:300px auto;gap:14px">
+  <!-- profile -->
+  <div style="position:relative;border-radius:26px;overflow:hidden;background:#B9C9E6">
+    <image-slot id="emp-month" shape="rect" placeholder="صورة موظف الشهر"></image-slot>
+    <div style="position:absolute;inset:auto 0 0 0;padding:16px;display:flex;align-items:flex-end;justify-content:space-between;background:linear-gradient(transparent,rgba(20,33,61,.55));pointer-events:none">
+      <div style="color:#fff"><div style="font-size:12px;opacity:.9;margin-bottom:2px">موظف الشهر</div><div style="font-family:Alexandria;font-size:19px">أحمد سمير</div><div style="font-size:12px;opacity:.9">مصمم واجهات</div></div>
+      <div style="padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.15);backdrop-filter:blur(8px);color:#fff;font-size:13px">KPI 96%</div>
+    </div>
+  </div>
+  <!-- hours chart -->
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:Alexandria;font-size:17px">ساعات العمل</span><span style="width:32px;height:32px;border-radius:50%;background:#fff;display:grid;place-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#14213D" stroke-width="2"><path d="M17 7L7 17M7 7h10v10" transform="scale(-1,1) translate(-24,0)"></path></svg></span></div>
+    <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><span style="font-family:Alexandria;font-weight:300;font-size:30px">44.2</span><span style="font-size:12px;color:#5B6785;line-height:1.3">ساعة<br>هذا الأسبوع</span></div>
+    <div style="flex:1;display:flex;align-items:flex-end;justify-content:space-between;padding:0 6px">
+      <sc-for list="{{ bars }}" as="b" hint-placeholder-count="7">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;position:relative">
+          <sc-if value="{{ b.today }}"><span style="position:absolute;top:-30px;white-space:nowrap;background:#2E62F0;color:#fff;font-size:11px;padding:3px 8px;border-radius:999px">{{ b.h }} س</span></sc-if>
+          <div style="width:5px;border-radius:5px;height:{{ b.px }};background:{{ b.color }}"></div>
+          <span style="font-size:11px;color:#5B6785">{{ b.d }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <!-- time tracker -->
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:Alexandria;font-size:17px">تسجيل الحضور</span><span style="font-size:12px;color:#1FAF7A;background:#E2F6EE;padding:4px 10px;border-radius:999px">دخول 08:52</span></div>
+    <div style="flex:1;display:grid;place-items:center;position:relative">
+      <svg width="150" height="150" viewBox="0 0 160 160" style="transform:rotate(-90deg)"><circle cx="80" cy="80" r="70" fill="none" stroke="#E3E9F4" stroke-width="10" stroke-dasharray="3 6"></circle><circle cx="80" cy="80" r="70" fill="none" stroke="#2E62F0" stroke-width="10" stroke-linecap="round" stroke-dasharray="439.8" stroke-dashoffset="{{ ringOffset }}"></circle></svg>
+      <div style="position:absolute;text-align:center"><div style="font-family:Alexandria;font-size:30px;font-weight:400;direction:ltr">{{ clock }}</div><div style="font-size:11px;color:#5B6785">من 08:00 ساعات</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;gap:6px">
+        <button onClick="{{ toggleRun }}" style="height:34px;padding:0 14px;border-radius:999px;border:1px solid #C9D4E8;background:#fff;font-size:12px;color:#14213D">{{ runLabel }}</button>
+      </div>
+      <button style="height:34px;padding:0 16px;border-radius:999px;border:0;background:#1A2F6B;color:#fff;font-size:12px">تسجيل انصراف</button>
+    </div>
+  </div>
+  <!-- payroll cycle + approvals -->
+  <div style="grid-row:span 2;display:flex;flex-direction:column;gap:14px">
+    <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:18px 20px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:Alexandria;font-size:17px">دورة رواتب أكتوبر</span><span style="font-family:Alexandria;font-weight:300;font-size:32px">68%</span></div>
+      <div style="display:flex;gap:4px;margin-top:14px;font-size:11px;color:#5B6785"><span style="flex:40">إعداد</span><span style="flex:28">مراجعة</span><span style="flex:32">اعتماد</span></div>
+      <div style="display:flex;gap:4px;margin-top:6px">
+        <div style="flex:40;height:28px;border-radius:999px;background:#2E62F0;color:#fff;font-size:11px;display:flex;align-items:center;padding:0 12px">مكتمل</div>
+        <div style="flex:28;height:28px;border-radius:999px;background:#1A2F6B"></div>
+        <div style="flex:32;height:28px;border-radius:999px;background:#C9D4E8"></div>
+      </div>
+    </div>
+    <div style="flex:1;position:relative;padding-top:10px">
+      <div style="position:absolute;top:0;inset-inline:14px;height:30px;border-radius:20px 20px 0 0;background:#C9D4E8"></div>
+      <div style="position:relative;height:100%;box-sizing:border-box;background:linear-gradient(170deg,#24408A,#1A2F6B);border-radius:24px;padding:20px;color:#fff">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px"><span style="font-family:Alexandria;font-size:16px">طلبات بانتظار اعتمادك</span><span style="font-family:Alexandria;font-weight:300;font-size:26px">{{ doneCount }}/6</span></div>
+        <sc-for list="{{ tasks }}" as="k" hint-placeholder-count="6">
+          <div onClick="{{ k.toggle }}" style="display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer">
+            <span style="width:32px;height:32px;border-radius:10px;border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;font-size:11px;flex:none">{{ k.tag }}</span>
+            <div style="flex:1;min-width:0"><div style="font-size:13px">{{ k.title }}</div><div style="font-size:11px;opacity:.6">{{ k.sub }}</div></div>
+            <span style="width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:{{ k.chk }};border:1px solid rgba(255,255,255,.4);font-size:10px">{{ k.mark }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <!-- accordion -->
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:8px 20px">
+    <sc-for list="{{ acc }}" as="a" hint-placeholder-count="4">
+      <div style="border-bottom:1px solid #E3E9F4">
+        <div onClick="{{ a.toggle }}" style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;cursor:pointer;font-size:14px;font-weight:500"><span>{{ a.title }}</span><span style="color:#5B6785;font-size:12px">{{ a.arrow }}</span></div>
+        <sc-if value="{{ a.open }}">
+          <div style="display:flex;flex-direction:column;gap:10px;padding:0 0 14px">
+            <sc-for list="{{ a.rows }}" as="r">
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#5B6785">{{ r.k }}</span><span style="font-weight:500">{{ r.v }}</span></div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+  <!-- calendar -->
+  <div style="grid-column:span 2;background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:16px 20px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <span style="font-size:12px;padding:5px 12px;border-radius:999px;background:#fff;color:#5B6785">سبتمبر</span>
+      <span style="font-family:Alexandria;font-size:16px">أكتوبر 2026</span>
+      <span style="font-size:12px;padding:5px 12px;border-radius:999px;background:#fff;color:#5B6785">نوفمبر</span>
+    </div>
+    <div style="display:grid;grid-template-columns:64px 1fr">
+      <div></div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);text-align:center;padding-bottom:8px">
+        <sc-for list="{{ days }}" as="d" hint-placeholder-count="5"><div style="font-size:12px;color:{{ d.c }}"><div>{{ d.n }}</div><div style="font-family:Alexandria;font-size:17px;margin-top:2px">{{ d.num }}</div></div></sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <span style="height:40px;font-size:12px;color:#5B6785;direction:ltr;text-align:right">9:00 ص</span><span style="height:40px;font-size:12px;color:#5B6785">10:00 ص</span><span style="height:40px;font-size:12px;color:#5B6785">11:00 ص</span><span style="height:40px;font-size:12px;color:#5B6785">12:00 م</span>
+      </div>
+      <div style="position:relative;background:repeating-linear-gradient(90deg,transparent 0 calc(20% - 1px),#DCE3EF calc(20% - 1px) 20%)">
+        <div style="position:absolute;top:2px;right:21%;width:36%;background:#fff;border-radius:12px;padding:8px 12px;box-shadow:0 6px 16px -8px rgba(26,47,107,.3);display:flex;justify-content:space-between;align-items:center;gap:8px">
+          <div><div style="font-size:13px;font-weight:500">اجتماع الفريق الأسبوعي</div><div style="font-size:11px;color:#5B6785">مراجعة تقدم المشاريع</div></div>
+          <div style="display:flex"><span style="width:22px;height:22px;border-radius:50%;background:#9DB5EE;border:2px solid #fff"></span><span style="width:22px;height:22px;border-radius:50%;background:#1A2F6B;border:2px solid #fff;margin-right:-8px"></span><span style="width:22px;height:22px;border-radius:50%;background:#2E62F0;border:2px solid #fff;margin-right:-8px"></span></div>
+        </div>
+        <div style="position:absolute;top:84px;right:61%;width:36%;background:#2E62F0;color:#fff;border-radius:12px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px">
+          <div><div style="font-size:13px;font-weight:500">تعريف الموظفين الجدد</div><div style="font-size:11px;opacity:.8">جولة على السياسات والأنظمة</div></div>
+          <div style="display:flex"><span style="width:22px;height:22px;border-radius:50%;background:#C9D4E8;border:2px solid #2E62F0"></span><span style="width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid #2E62F0;margin-right:-8px"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= EMPLOYEES ================= -->
+<sc-if value="{{ isPeople }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px">
+  <div><h1 style="font-family:Alexandria;font-weight:300;font-size:40px;margin:0">الموظفين</h1><div style="color:#5B6785;font-size:14px;margin-top:6px">248 موظف في 9 أقسام</div></div>
+  <button style="height:42px;padding:0 22px;border-radius:999px;border:0;background:#1A2F6B;color:#fff;font-size:14px">+ إضافة موظف</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px">
+  <sc-for list="{{ emps }}" as="e" hint-placeholder-count="8">
+    <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:12px;display:flex;flex-direction:column;gap:12px">
+      <div style="height:170px;border-radius:18px;overflow:hidden;background:#C9D4E8"><image-slot id="{{ e.slot }}" shape="rect" placeholder="صورة الموظف"></image-slot></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:0 6px 6px">
+        <div><div style="font-family:Alexandria;font-size:16px">{{ e.name }}</div><div style="font-size:12px;color:#5B6785;margin-top:2px">{{ e.role }} · {{ e.dept }}</div></div>
+        <span style="font-size:11px;padding:4px 10px;border-radius:999px;background:{{ e.chipBg }};color:{{ e.chipFg }};white-space:nowrap">{{ e.st }}</span>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</sc-if>
+
+<!-- ================= ATTENDANCE ================= -->
+<sc-if value="{{ isAttend }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px">
+  <div><h1 style="font-family:Alexandria;font-weight:300;font-size:40px;margin:0">الحضور والانصراف</h1><div style="color:#5B6785;font-size:14px;margin-top:6px">الخميس، 22 أكتوبر 2026</div></div>
+  <div style="display:flex;gap:36px">
+    <div><div style="font-size:12px;color:#5B6785">حاضر</div><div style="font-family:Alexandria;font-weight:300;font-size:44px;color:#1FAF7A">154</div></div>
+    <div><div style="font-size:12px;color:#5B6785">عن بُعد</div><div style="font-family:Alexandria;font-weight:300;font-size:44px;color:#2E62F0">45</div></div>
+    <div><div style="font-size:12px;color:#5B6785">متأخر</div><div style="font-family:Alexandria;font-weight:300;font-size:44px;color:#C97F0A">19</div></div>
+    <div><div style="font-size:12px;color:#5B6785">غائب</div><div style="font-family:Alexandria;font-weight:300;font-size:44px;color:#E04F5F">6</div></div>
+  </div>
+</div>
+<div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:8px 22px 14px">
+  <div style="display:grid;grid-template-columns:2fr 1.2fr 1fr 1fr 1fr 1fr 1.6fr;gap:12px;padding:14px 0;font-size:12px;color:#5B6785;border-bottom:1px solid #E3E9F4">
+    <span>الموظف</span><span>القسم</span><span>دخول</span><span>انصراف</span><span>ساعات</span><span>الحالة</span><span>الأسبوع (أحد ← خميس)</span>
+  </div>
+  <sc-for list="{{ emps }}" as="e" hint-placeholder-count="8">
+    <div style="display:grid;grid-template-columns:2fr 1.2fr 1fr 1fr 1fr 1fr 1.6fr;gap:12px;padding:13px 0;font-size:14px;align-items:center;border-bottom:1px solid #EEF2F8">
+      <span style="font-weight:500">{{ e.name }}</span><span style="color:#5B6785">{{ e.dept }}</span>
+      <span style="direction:ltr;text-align:right">{{ e.in }}</span><span style="direction:ltr;text-align:right">{{ e.out }}</span><span>{{ e.hrs }}</span>
+      <span><span style="font-size:12px;padding:4px 10px;border-radius:999px;background:{{ e.chipBg }};color:{{ e.chipFg }}">{{ e.st }}</span></span>
+      <span style="display:flex;gap:5px"><sc-for list="{{ e.week }}" as="w"><span style="width:26px;height:22px;border-radius:7px;background:{{ w }}"></span></sc-for></span>
+    </div>
+  </sc-for>
+  <div style="display:flex;gap:18px;padding-top:14px;font-size:12px;color:#5B6785">
+    <span style="display:flex;gap:6px;align-items:center"><span style="width:12px;height:12px;border-radius:4px;background:#1FAF7A"></span>حاضر</span>
+    <span style="display:flex;gap:6px;align-items:center"><span style="width:12px;height:12px;border-radius:4px;background:#2E62F0"></span>عن بُعد</span>
+    <span style="display:flex;gap:6px;align-items:center"><span style="width:12px;height:12px;border-radius:4px;background:#F0B44C"></span>متأخر</span>
+    <span style="display:flex;gap:6px;align-items:center"><span style="width:12px;height:12px;border-radius:4px;background:#E04F5F"></span>غائب</span>
+    <span style="display:flex;gap:6px;align-items:center"><span style="width:12px;height:12px;border-radius:4px;background:#C9D4E8"></span>إجازة</span>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= PAYROLL ================= -->
+<sc-if value="{{ isPayroll }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px">
+  <div><h1 style="font-family:Alexandria;font-weight:300;font-size:40px;margin:0">مسيّر رواتب أكتوبر</h1><div style="color:#5B6785;font-size:14px;margin-top:6px">تاريخ الصرف: 28 أكتوبر 2026</div></div>
+  <button onClick="{{ approve }}" style="height:44px;padding:0 24px;border-radius:999px;border:0;background:{{ approveBg }};color:#fff;font-size:14px">{{ approveLabel }}</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:14px">
+  <div style="background:linear-gradient(170deg,#24408A,#1A2F6B);color:#fff;border-radius:26px;padding:20px"><div style="font-size:13px;opacity:.75">صافي الرواتب</div><div style="font-family:Alexandria;font-weight:300;font-size:36px;margin-top:8px">{{ totNet }}</div><div style="font-size:12px;opacity:.7">جنيه مصري</div></div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:20px"><div style="font-size:13px;color:#5B6785">الأساسي</div><div style="font-family:Alexandria;font-weight:300;font-size:36px;margin-top:8px">{{ totBase }}</div><div style="font-size:12px;color:#5B6785">جنيه مصري</div></div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:20px"><div style="font-size:13px;color:#5B6785">البدلات والحوافز</div><div style="font-family:Alexandria;font-weight:300;font-size:36px;margin-top:8px;color:#1FAF7A">+{{ totAllow }}</div><div style="font-size:12px;color:#5B6785">مرتبطة بنتائج KPIs</div></div>
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:20px"><div style="font-size:13px;color:#5B6785">الاستقطاعات</div><div style="font-family:Alexandria;font-weight:300;font-size:36px;margin-top:8px;color:#E04F5F">−{{ totDed }}</div><div style="font-size:12px;color:#5B6785">تأمينات · ضرائب · تأخير</div></div>
+</div>
+<div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:8px 22px 14px">
+  <div style="display:grid;grid-template-columns:2fr 1.2fr 1fr 1fr 1fr 1.1fr 1fr;gap:12px;padding:14px 0;font-size:12px;color:#5B6785;border-bottom:1px solid #E3E9F4">
+    <span>الموظف</span><span>القسم</span><span>الأساسي</span><span>البدلات</span><span>الاستقطاعات</span><span>الصافي</span><span>الحالة</span>
+  </div>
+  <sc-for list="{{ emps }}" as="e" hint-placeholder-count="8">
+    <div style="display:grid;grid-template-columns:2fr 1.2fr 1fr 1fr 1fr 1.1fr 1fr;gap:12px;padding:13px 0;font-size:14px;align-items:center;border-bottom:1px solid #EEF2F8">
+      <span style="font-weight:500">{{ e.name }}</span><span style="color:#5B6785">{{ e.dept }}</span>
+      <span>{{ e.baseF }}</span><span style="color:#1FAF7A">+{{ e.allowF }}</span><span style="color:#E04F5F">−{{ e.dedF }}</span>
+      <span style="font-family:Alexandria;font-weight:500">{{ e.netF }}</span>
+      <span><span style="font-size:12px;padding:4px 10px;border-radius:999px;background:{{ e.payBg }};color:{{ e.payFg }}">{{ e.pay }}</span></span>
+    </div>
+  </sc-for>
+</div>
+</sc-if>
+
+<!-- ================= KPIs ================= -->
+<sc-if value="{{ isKpi }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px">
+  <div><h1 style="font-family:Alexandria;font-weight:300;font-size:40px;margin:0">مؤشرات الأداء</h1><div style="color:#5B6785;font-size:14px;margin-top:6px">الربع الرابع 2026 · متوسط الشركة 87%</div></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:14px">
+  <sc-for list="{{ depts }}" as="d" hint-placeholder-count="4">
+    <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:Alexandria;font-size:16px">{{ d.name }}</span><span style="font-family:Alexandria;font-weight:300;font-size:34px">{{ d.score }}%</span></div>
+      <div style="font-size:12px;color:#5B6785;margin:4px 0 14px">{{ d.metric }}</div>
+      <div style="height:10px;border-radius:999px;background:#E3E9F4;position:relative">
+        <div style="height:100%;border-radius:999px;width:{{ d.w }};background:{{ d.c }}"></div>
+        <div style="position:absolute;top:-4px;right:{{ d.t }};width:2px;height:18px;background:#14213D"></div>
+      </div>
+      <div style="font-size:11px;color:#5B6785;margin-top:8px">المستهدف {{ d.target }}%</div>
+    </div>
+  </sc-for>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:14px">
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:8px 22px 14px">
+    <div style="display:grid;grid-template-columns:2fr 1.2fr 2.4fr 1fr 1fr;gap:12px;padding:14px 0;font-size:12px;color:#5B6785;border-bottom:1px solid #E3E9F4"><span>الموظف</span><span>القسم</span><span>المؤشر الرئيسي</span><span>الإنجاز</span><span>التقييم</span></div>
+    <sc-for list="{{ emps }}" as="e" hint-placeholder-count="8">
+      <div style="display:grid;grid-template-columns:2fr 1.2fr 2.4fr 1fr 1fr;gap:12px;padding:13px 0;font-size:14px;align-items:center;border-bottom:1px solid #EEF2F8">
+        <span style="font-weight:500">{{ e.name }}</span><span style="color:#5B6785">{{ e.dept }}</span><span style="color:#5B6785;font-size:13px">{{ e.goal }}</span>
+        <span style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:6px;border-radius:9px;background:#E3E9F4"><span style="display:block;height:100%;border-radius:9px;width:{{ e.kpiW }};background:{{ e.kpiC }}"></span></span></span>
+        <span style="font-family:Alexandria;font-weight:500">{{ e.kpi }}%</span>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background:linear-gradient(170deg,#24408A,#1A2F6B);color:#fff;border-radius:26px;padding:20px;display:flex;flex-direction:column;gap:12px">
+    <span style="font-family:Alexandria;font-size:16px">الأعلى أداءً</span>
+    <sc-for list="{{ top }}" as="e" hint-placeholder-count="3">
+      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1)">
+        <span style="font-family:Alexandria;font-size:22px;font-weight:300;width:22px;opacity:.6">{{ e.rank }}</span>
+        <div style="flex:1"><div style="font-size:14px">{{ e.name }}</div><div style="font-size:11px;opacity:.6">{{ e.dept }}</div></div>
+        <span style="font-family:Alexandria">{{ e.kpi }}%</span>
+      </div>
+    </sc-for>
+    <div style="margin-top:auto;font-size:12px;opacity:.75;line-height:1.7">يُصرف حافز أداء تلقائياً في مسيّر الرواتب لمن يتجاوز 90%.</div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= LEAVES ================= -->
+<sc-if value="{{ isLeave }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:34px 4px 22px">
+  <div><h1 style="font-family:Alexandria;font-weight:300;font-size:40px;margin:0">الإجازات والطلبات</h1><div style="color:#5B6785;font-size:14px;margin-top:6px">{{ pendingCount }} طلبات بانتظار الرد</div></div>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:14px">
+  <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:8px 22px 8px">
+    <sc-for list="{{ leaves }}" as="l" hint-placeholder-count="5">
+      <div style="display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid #EEF2F8">
+        <div style="width:44px;height:44px;border-radius:14px;background:#DCE6FB;color:#1A2F6B;display:grid;place-items:center;font-family:Alexandria;font-size:16px;flex:none">{{ l.days }}</div>
+        <div style="flex:1"><div style="font-size:15px;font-weight:500">{{ l.name }} <span style="font-weight:400;color:#5B6785;font-size:13px">· {{ l.type }}</span></div><div style="font-size:12px;color:#5B6785;margin-top:3px">{{ l.range }}</div></div>
+        <sc-if value="{{ l.pending }}">
+          <div style="display:flex;gap:6px">
+            <button onClick="{{ l.reject }}" style="height:36px;padding:0 16px;border-radius:999px;border:1px solid #C9D4E8;background:#fff;color:#14213D;font-size:13px">رفض</button>
+            <button onClick="{{ l.accept }}" style="height:36px;padding:0 18px;border-radius:999px;border:0;background:#1A2F6B;color:#fff;font-size:13px">موافقة</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ l.decided }}"><span style="font-size:12px;padding:5px 12px;border-radius:999px;background:{{ l.bg }};color:{{ l.fg }}">{{ l.result }}</span></sc-if>
+      </div>
+    </sc-for>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div style="background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:26px;padding:20px">
+      <div style="font-family:Alexandria;font-size:16px;margin-bottom:14px">أرصدة الإجازات (المتوسط)</div>
+      <div style="display:flex;flex-direction:column;gap:14px;font-size:13px">
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>اعتيادية</span><span>14 / 21 يوم</span></div><div style="height:8px;border-radius:9px;background:#E3E9F4"><div style="width:66%;height:100%;border-radius:9px;background:#2E62F0"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>عارضة</span><span>4 / 7 أيام</span></div><div style="height:8px;border-radius:9px;background:#E3E9F4"><div style="width:57%;height:100%;border-radius:9px;background:#1A2F6B"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>مرضية</span><span>2 / 15 يوم</span></div><div style="height:8px;border-radius:9px;background:#E3E9F4"><div style="width:13%;height:100%;border-radius:9px;background:#9DB5EE"></div></div></div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(170deg,#24408A,#1A2F6B);color:#fff;border-radius:26px;padding:20px">
+      <div style="font-family:Alexandria;font-size:16px;margin-bottom:12px">طلبات أخرى</div>
+      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:13px"><span>سُلف على الراتب</span><span>3</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:13px"><span>شهادات خبرة / راتب</span><span>5</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:13px"><span>عقود تنتهي خلال 30 يوم</span><span>2</span></div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startRole&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;emp&quot;,&quot;hr&quot;,&quot;mgmt&quot;],&quot;default&quot;:&quot;hr&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;liveTimer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const EMPS=[
+ ['أحمد سمير','مصمم واجهات','التصميم',18500,'حاضر','08:52','—',96,'تسليم شاشات المنتج في موعدها',['p','p','r','p','p']],
+ ['منى عادل','مديرة موارد بشرية','الموارد البشرية',24000,'حاضر','08:40','—',91,'معدل الاحتفاظ بالموظفين',['p','p','p','p','p']],
+ ['كريم فؤاد','مهندس برمجيات','التطوير',26000,'عن بُعد','09:05','—',89,'مهام السبرنت المنجزة',['r','r','p','r','r']],
+ ['سارة نبيل','محاسبة','المالية',15500,'متأخر','09:47','—',78,'إغلاق الحسابات الشهرية',['p','l','p','l','l']],
+ ['يوسف حسن','مسؤول مبيعات','المبيعات',13000,'حاضر','08:58','—',93,'تحقيق مستهدف المبيعات',['p','p','p','a','p']],
+ ['نور الهدى','دعم عملاء','خدمة العملاء',9500,'إجازة','—','—',84,'رضا العملاء CSAT',['p','p','v','v','v']],
+ ['عمر خالد','مدير منتج','المنتج',29000,'غائب','—','—',72,'إطلاق المزايا على الخارطة',['p','a','p','p','a']],
+ ['ليلى مصطفى','مسوّقة رقمية','التسويق',14000,'حاضر','08:31','—',88,'تكلفة اكتساب العميل',['p','p','p','p','p']]];
+const ST={'حاضر':['#E2F6EE','#14805A'],'عن بُعد':['#DCE6FB','#1F4FCC'],'متأخر':['#FCEFD6','#9A5E00'],'غائب':['#FBE3E6','#B3283A'],'إجازة':['#ECEFF5','#4A5674']};
+const WK={p:'#1FAF7A',r:'#2E62F0',l:'#F0B44C',a:'#E04F5F',v:'#C9D4E8'};
+const PAY=[['معتمد','#E2F6EE','#14805A'],['قيد المراجعة','#FCEFD6','#9A5E00'],['معتمد','#E2F6EE','#14805A'],['قيد المراجعة','#FCEFD6','#9A5E00'],['معتمد','#E2F6EE','#14805A'],['معتمد','#E2F6EE','#14805A'],['مُعلّق','#FBE3E6','#B3283A'],['معتمد','#E2F6EE','#14805A']];
+const f=n=>Math.round(n).toLocaleString('en-US');
+const kc=k=>k>=90?'#1FAF7A':k>=80?'#2E62F0':'#F0B44C';
+class Component extends DCLogic {
+  state={tab:null,role:null,sec:13500,running:true,acc:1,done:{0:true,1:true},approved:false,lv:{},empIn:true,month:3,reqType:0,extraReqs:[],rd:{0:true,1:true,2:true},stages:{}};
+  componentDidMount(){this.t=setInterval(()=>{if(this.state.running&&(this.props.liveTimer??true))this.setState(s=>({sec:s.sec+1}))},1000)}
+  componentWillUnmount(){clearInterval(this.t)}
+  renderVals(){
+    const s=this.state,role=s.role||this.props.startRole||'hr';
+    const TABS={emp:[['ehome','الرئيسية'],['slip','قسيمة الراتب'],['myreq','طلباتي']],hr:[['hrhome','الرئيسية'],['hiring','التوظيف'],['people','الموظفين'],['attend','الحضور والانصراف'],['payroll','الرواتب'],['leave','الإجازات']],mgmt:[['dash','الرئيسية'],['kpi','مؤشرات الأداء'],['payroll','الرواتب'],['people','الموظفين']]};
+    const tab=s.tab&&TABS[role].some(t=>t[0]===s.tab)?s.tab:TABS[role][0][0];
+    const roles=[['emp','موظف'],['hr','الموارد البشرية'],['mgmt','الإدارة']].map(([k,l])=>({label:l,bg:k===role?'#2E62F0':'transparent',fg:k===role?'#fff':'#5B6785',go:()=>this.setState({role:k,tab:TABS[k][0][0]})}));
+    const go=t=>()=>this.setState({tab:t});
+    const E=[['الراتب الأساسي',18500],['بدل انتقال',1200],['بدل اتصالات',400],['حافز أداء (KPI 96%)',2500]],D=[['تأمينات اجتماعية 11%',2035],['ضريبة كسب العمل',1460],['تأمين طبي',250]];
+    const mf=[.92,.95,.97,1][s.month],sumE=E.reduce((a,r)=>a+r[1],0)*mf,sumD=D.reduce((a,r)=>a+r[1],0);
+    const MON=['يوليو','أغسطس','سبتمبر','أكتوبر'];
+    const months=MON.map((m,i)=>({label:m,bg:i===s.month?'#1A2F6B':'transparent',fg:i===s.month?'#fff':'#14213D',go:()=>this.setState({month:i})}));
+    const RT=['إجازة اعتيادية','إجازة عارضة','سلفة','شهادة راتب','عمل إضافي'];
+    const reqTypes=RT.map((t,i)=>({label:t,bg:i===s.reqType?'#1A2F6B':'#fff',fg:i===s.reqType?'#fff':'#14213D',bd:i===s.reqType?'#1A2F6B':'#DCE3EF',go:()=>this.setState({reqType:i})}));
+    const RS={'تمت الموافقة':['#E2F6EE','#14805A'],'تم التسليم':['#E2F6EE','#14805A'],'قيد المراجعة':['#FCEFD6','#9A5E00']};
+    const myReqs=[...s.extraReqs,['عمل إضافي 4 ساعات','2 أكتوبر','قيد المراجعة'],['شهادة راتب','12 أغسطس','تم التسليم'],['إجازة اعتيادية','5 – 7 سبتمبر','تمت الموافقة']].map(r=>({type:r[0],date:r[1],st:r[2],bg:RS[r[2]][0],fg:RS[r[2]][1]}));
+    const quick=[['طلب إجازة',0],['طلب سلفة',2],['شهادة راتب',3],['عمل إضافي',4]].map(q=>({label:q[0],go:()=>this.setState({tab:'myreq',reqType:q[1]})}));
+    const myKpis=[['تسليم شاشات المنتج في موعدها',100,'12/12'],['رضا فريق المنتج',94,'4.7/5'],['حضور ورش التعلّم',80,'4/5']].map(k=>({name:k[0],w:k[1]+'%',c:kc(k[1]),v:k[2]}));
+    const fun=[['متقدمون',320],['فرز أولي',84],['مقابلات',26],['عروض',9],['انضموا',6]];
+    const funnel=fun.map((x,i)=>({k:x[0],v:x[1],w:Math.max(14,x[1]/320*100)+'%',c:['#1A2F6B','#24408A','#2E62F0','#9DB5EE','#DCE6FB'][i],fg:i<3?'#fff':'#1A2F6B'}));
+    const R=[['إقفال الحضور والانصراف','تم 21 أكتوبر'],['احتساب العمل الإضافي','62 ساعة'],['ربط حوافز KPIs','14 موظف مستحق'],['تسوية السُلف','3 سُلف قائمة'],['مراجعة الاستقطاعات','تأخير وغياب']];
+    const ready=R.map((r,i)=>({title:r[0],sub:r[1],chk:s.rd[i]?'#2E62F0':'transparent',mark:s.rd[i]?'✓':'',toggle:()=>this.setState(p=>({rd:{...p.rd,[i]:!p.rd[i]}}))}));
+    const C=[['رنا إبراهيم','مصممة UX',2],['حازم يحيى','مطوّر Backend',2],['دينا سعيد','محاسب أول',1],['مروان عاطف','مندوب مبيعات',0],['شيماء ناصر','دعم عملاء',0],['باسل منير','مطوّر Flutter',1],['ياسمين فوزي','مسوّقة محتوى',3],['مازن رأفت','مطوّر واجهات',4]];
+    const ST5=['متقدمون','فرز أولي','مقابلات','عرض وظيفي','تم التعيين'];
+    const stageOf=(c,i)=>(s.stages[i]!==undefined?s.stages[i]:c[2]);
+    const moveNext=(i,si)=>()=>this.setState(p=>({stages:Object.assign({},p.stages,{[i]:si+1})}));
+    const board=ST5.map((t,si)=>{
+      const items=[];
+      C.forEach((c,i)=>{if(stageOf(c,i)===si)items.push({n:c[0],r:c[1],ini:c[0][0],canMove:si<4,next:moveNext(i,si)});});
+      return {title:t,count:items.length,items:items};
+    });
+    const tabs=TABS[role].map(([k,l])=>({label:l,bg:k===tab?'#1A2F6B':'transparent',fg:k===tab?'#fff':'#14213D',go:()=>this.setState({tab:k})}));
+    const emps=EMPS.map((e,i)=>{const[name,role,dept,base,st,inT,out,kpi,goal,week]=e;const allow=base*(kpi>=90?.2:.12),ded=base*.11+base*.06+(st==='متأخر'?250:0)+(st==='غائب'?base/30:0);
+      const h=inT==='—'?'—':(()=>{const[a,b]=inT.split(':').map(Number);const m=Math.max(0,12*60+40-(a*60+b));return Math.floor(m/60)+':'+String(m%60).padStart(2,'0')})();
+      return{name,role,dept,st,in:inT,out,hrs:h,kpi,goal,slot:'emp-'+i,chipBg:ST[st][0],chipFg:ST[st][1],week:week.map(w=>WK[w]),base,allow,ded,net:base+allow-ded,baseF:f(base),allowF:f(allow),dedF:f(ded),netF:f(base+allow-ded),pay:s.approved?'معتمد':PAY[i][0],payBg:s.approved?'#E2F6EE':PAY[i][1],payFg:s.approved?'#14805A':PAY[i][2],kpiW:kpi+'%',kpiC:kc(kpi)}});
+    const sum=k=>f(emps.reduce((a,e)=>a+e[k],0));
+    const hrs=[7.5,8.2,6.4,8.8,9.1,4.2,0],dn=['أحد','إثن','ثلا','أرب','خمي','جمع','سبت'];
+    const bars=hrs.map((h,i)=>({d:dn[i],h,today:i===4,px:Math.max(6,h*12)+'px',color:i===4?'#2E62F0':h===0?'#DCE3EF':'#1A2F6B'}));
+    const T=[['إجازة','طلب إجازة اعتيادية','نور الهدى · 3 أيام'],['سلفة','طلب سلفة 5,000 ج.م','يوسف حسن'],['وقت','عمل إضافي 6 ساعات','كريم فؤاد'],['تعيين','عرض وظيفي - مطوّر','إدارة التطوير'],['عقد','تجديد عقد سنوي','سارة نبيل'],['تقييم','اعتماد تقييم الربع','قسم المبيعات']];
+    const tasks=T.map((t,i)=>({tag:t[0],title:t[1],sub:t[2],chk:s.done[i]?'#2E62F0':'transparent',mark:s.done[i]?'✓':'',toggle:()=>this.setState(p=>({done:{...p.done,[i]:!p.done[i]}}))}));
+    const A=[['التأمينات الاجتماعية',[['حصة الموظف','11%'],['حصة الشركة','18.75%'],['إجمالي أكتوبر','412,300 ج.م']]],['العُهد والأجهزة',[['MacBook Air M3','أحمد سمير'],['هاتف عمل','يوسف حسن'],['عُهد غير مستلمة','4']]],['ملخص التعويضات',[['متوسط الراتب','17,900 ج.م'],['زيادات هذا العام','8.5%']]],['مزايا الموظفين',[['تأمين طبي','248 مشترك'],['اشتراك رياضي','61 مشترك']]]];
+    const acc=A.map((a,i)=>({title:a[0],open:s.acc===i,arrow:s.acc===i?'▴':'▾',rows:a[1].map(r=>({k:r[0],v:r[1]})),toggle:()=>this.setState(p=>({acc:p.acc===i?-1:i}))}));
+    const days=[['الأحد',18],['الإثنين',19],['الثلاثاء',20],['الأربعاء',21],['الخميس',22]].map((d,i)=>({n:d[0],num:d[1],c:i===4?'#2E62F0':'#5B6785'}));
+    const depts=[['التطوير',89,85,'سرعة التسليم'],['المبيعات',93,90,'تحقيق المستهدف'],['خدمة العملاء',84,88,'رضا العملاء'],['المالية',78,85,'دقة الإغلاق الشهري']].map(d=>({name:d[0],score:d[1],target:d[2],metric:d[3],w:d[1]+'%',t:d[2]+'%',c:kc(d[1])}));
+    const top=[...emps].sort((a,b)=>b.kpi-a.kpi).slice(0,4).map((e,i)=>({...e,rank:i+1}));
+    const L=[['نور الهدى','اعتيادية','25 – 27 أكتوبر',3],['كريم فؤاد','عارضة','29 أكتوبر',1],['ليلى مصطفى','اعتيادية','2 – 6 نوفمبر',5],['سارة نبيل','مرضية','23 أكتوبر',1],['يوسف حسن','بدون أجر','10 – 11 نوفمبر',2]];
+    const leaves=L.map((l,i)=>{const r=s.lv[i];return{name:l[0],type:l[1],range:l[2],days:l[3],pending:!r,decided:!!r,result:r==='ok'?'تمت الموافقة':'مرفوض',bg:r==='ok'?'#E2F6EE':'#FBE3E6',fg:r==='ok'?'#14805A':'#B3283A',accept:()=>this.setState(p=>({lv:{...p.lv,[i]:'ok'}})),reject:()=>this.setState(p=>({lv:{...p.lv,[i]:'no'}}))}});
+    const hh=Math.floor(s.sec/3600),mm=Math.floor(s.sec%3600/60);
+    return{roles,isEHome:tab==='ehome',isSlip:tab==='slip',isMyReq:tab==='myreq',isHrHome:tab==='hrhome',isHiring:tab==='hiring',
+      empChip:s.empIn?'دخول 08:52':'لم يُسجَّل',empChipBg:s.empIn?'#E2F6EE':'#ECEFF5',empChipFg:s.empIn?'#14805A':'#4A5674',
+      empBtn:s.empIn?'تسجيل انصراف':'تسجيل حضور',empBtnBg:s.empIn?'#1A2F6B':'#2E62F0',empToggle:()=>this.setState(p=>({empIn:!p.empIn,running:!p.empIn})),
+      slipNet:f(sumE-sumD),slipEarn:f(sumE),slipDed:f(sumD),monthLabel:MON[s.month],months,
+      earn:E.map(r=>({k:r[0],v:f(r[1]*mf)})),ded:D.map(r=>({k:r[0],v:f(r[1])})),
+      goSlip:go('slip'),goReq:go('myreq'),goHiring:go('hiring'),quick,myKpis,reqTypes,myReqs,
+      submitReq:()=>this.setState(p=>({extraReqs:[[RT[p.reqType],'2 – 4 نوفمبر','قيد المراجعة'],...p.extraReqs]})),
+      funnel,ready,readyCount:Object.values(s.rd).filter(Boolean).length,board,
+      interviews:[['10:30 ص','رنا إبراهيم','مصممة UX'],['12:00 م','حازم يحيى','مطوّر Backend'],['2:00 م','دينا سعيد','محاسب أول']].map(v=>({t:v[0],n:v[1],r:v[2]})),
+      exceptions:emps.filter(e=>e.st==='متأخر'||e.st==='غائب'),
+      onboard:[['مازن رأفت','مطوّر واجهات',40],['هبة شريف','محاسبة',75],['تامر علي','مبيعات',90]].map(o=>({n:o[0],r:o[1],p:o[2],w:o[2]+'%'})),
+      expiring:[['تجديد عقد','سارة نبيل','15 نوفمبر'],['بطاقة الرقم القومي','يوسف حسن','3 نوفمبر'],['فترة الاختبار','هبة شريف','20 نوفمبر']].map(x=>({k:x[0],n:x[1],d:x[2]})),
+      tabs,isDash:tab==='dash',isPeople:tab==='people',isAttend:tab==='attend',isPayroll:tab==='payroll',isKpi:tab==='kpi',isLeave:tab==='leave',
+      emps,bars,tasks,acc,days,depts,top,leaves,
+      doneCount:Object.values(s.done).filter(Boolean).length,pendingCount:leaves.filter(l=>l.pending).length,
+      clock:String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0'),ringOffset:439.8*(1-Math.min(1,s.sec/28800)),
+      runLabel:s.running?'إيقاف مؤقت':'استئناف',toggleRun:()=>this.setState(p=>({running:!p.running})),
+      totNet:sum('net'),totBase:sum('base'),totAllow:sum('allow'),totDed:sum('ded'),
+      approve:()=>this.setState({approved:true}),approveBg:s.approved?'#1FAF7A':'#1A2F6B',approveLabel:s.approved?'تم الاعتماد ✓':'اعتماد وصرف الرواتب'};
+  }
+}
+</script>
+</body>
+</html>
